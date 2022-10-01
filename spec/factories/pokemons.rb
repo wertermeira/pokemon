@@ -5,7 +5,7 @@ FactoryBot.define do
     name { Faker::Games::Pokemon.name }
     hp { rand(1..100) }
     attack { rand(1..100) }
-    defence { rand(1..100) }
+    defense { rand(1..100) }
     sp_atk { rand(1..100) }
     sp_def { rand(1..100) }
     speed { rand(1..100) }

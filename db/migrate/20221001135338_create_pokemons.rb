@@ -4,7 +4,7 @@ class CreatePokemons < ActiveRecord::Migration[7.0]
       t.string :name
       t.integer :hp
       t.integer :attack
-      t.integer :defence
+      t.integer :defense
       t.integer :sp_atk
       t.integer :sp_def
       t.integer :speed
