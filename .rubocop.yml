@@ -1,0 +1,65 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+
+  TargetRailsVersion: 7.0
+  TargetRubyVersion: 3.1
+
+  Exclude:
+    - 'db/**/*'
+    - 'Rakefile'
+    - 'config/**/*'
+    - 'vendor/**/*'
+    - 'bin/bundle'
+
+  UseCache: false
+
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/integration/**/*.rb'
+  AllowedMethods: ['describe', 'context', 'feature', 'scenario', 'let', 'response', 'post', 'get', 'patch', 'put', 'path', 'delete', 'before']
+
+Metrics/MethodLength:
+  Enabled: true
+  Max: 15
+
+RSpec/AnyInstance:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/LetSetup:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - 'spec/integration/**/*.rb'
+
+RSpec/ScatteredSetup:
+  Exclude:
+    - 'spec/integration/**/*.rb'
+
+RSpec/VariableName:
+  Exclude:
+    - 'spec/integration/**/*.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: never
+
+Style/PreferredHashMethods:
+  EnforcedStyle: verbose

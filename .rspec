@@ -1,0 +1,5 @@
+--color
+--require spec_helper
+--format documentation
+--format html
+--out coverage/unit_test.html
