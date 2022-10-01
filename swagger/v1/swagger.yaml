@@ -23,6 +23,126 @@ paths:
                       "$ref": "#/components/schemas/Kind"
                   links:
                     "$ref": "#/components/schemas/Pagination"
+    post:
+      summary: Create kind
+      tags:
+      - Kinds
+      description: Create new kind (type, species)
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/Kind"
+        '422':
+          description: Unprocessable Entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                kind:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+  "/kinds/{id}":
+    get:
+      summary: Show kind
+      tags:
+      - Kinds
+      description: Show a kind (type, species)
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/Kind"
+        '404':
+          description: Not found
+    put:
+      summary: Update kind
+      tags:
+      - Kinds
+      description: Update a kind (type, species)
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '202':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/Kind"
+        '422':
+          description: Unprocessable Entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                kind:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+    delete:
+      summary: Destroy a kind
+      tags:
+      - Kinds
+      description: Show a kind (type, species)
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '204':
+          description: Not contet
+        '404':
+          description: Not found
+  "/pokemons":
+    get:
+      summary: List pokemon
+      tags:
+      - Pokemons
+      responses:
+        '200':
+          description: List
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/Pokemon"
+                  included:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/Kind"
+                  links:
+                    "$ref": "#/components/schemas/Pagination"
 components:
   schemas:
     Kind:
@@ -39,7 +159,7 @@ components:
           properties:
             name:
               type: string
-              example: Pikatchu
+              example: Water
             created_at:
               type: string
               example: '2020-04-26T10:20:00.000Z'
@@ -97,9 +217,12 @@ components:
           type: object
           properties:
             kinds:
-              type: array
-              items:
-                "$ref": "#/components/schemas/KindRelation"
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/KindRelation"
     Pagination:
       type: object
       properties:

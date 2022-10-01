@@ -41,6 +41,10 @@ RSpec.describe '/kinds', type: :request do
       }
 
       response 201, 'Created' do
+        schema type: :object,
+               properties: {
+                 data: { '$ref' => '#/components/schemas/Kind' }
+               }
         let(:name) { %w[Grass Pison Fire Bug Water].sample }
         let(:kind) do
           {
@@ -79,6 +83,10 @@ RSpec.describe '/kinds', type: :request do
       parameter name: :id, in: :path
 
       response 200, 'Success' do
+        schema type: :object,
+               properties: {
+                 data: { '$ref' => '#/components/schemas/Kind' }
+               }
         let(:id) { create(:kind).id }
         run_test!
       end
@@ -108,6 +116,10 @@ RSpec.describe '/kinds', type: :request do
       }
 
       response 202, 'Updated' do
+        schema type: :object,
+               properties: {
+                 data: { '$ref' => '#/components/schemas/Kind' }
+               }
         let(:id) { create(:kind).id }
         let(:name) { %w[Grass Pison Fire Bug Water].sample }
         let(:kind) do
@@ -142,7 +154,7 @@ RSpec.describe '/kinds', type: :request do
     delete 'Destroy a kind' do
       tags 'Kinds'
       produces 'application/json'
-      description 'Show a kind (type, species)'
+      description 'Destroy a kind (type, species)'
       parameter name: :id, in: :path
 
       response 204, 'Not contet' do

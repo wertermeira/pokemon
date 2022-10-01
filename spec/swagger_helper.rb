@@ -33,7 +33,7 @@ RSpec.configure do |config|
           KindRelation: {
             type: :object,
             properties: {
-              id: { type: :integer },
+              id: { type: :string },
               type: { type: :string, example: 'kinds' }
             }
           },
@@ -63,8 +63,13 @@ RSpec.configure do |config|
                 type: :object,
                 properties: {
                   kinds: {
-                    type: :array,
-                    items: { '$ref' => '#/components/schemas/KindRelation' }
+                    type: :object,
+                    properties: {
+                      data: {
+                        type: :array,
+                        items: { '$ref' => '#/components/schemas/KindRelation' }
+                      }
+                    }
                   }
                 }
               }

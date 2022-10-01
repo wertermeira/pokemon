@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_01_142712) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_kinds_on_name", unique: true
   end
 
   create_table "pokemon_kinds", force: :cascade do |t|
@@ -41,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_01_142712) do
     t.boolean "legendary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_pokemons_on_name", unique: true
   end
 
   add_foreign_key "pokemon_kinds", "kinds"

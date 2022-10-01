@@ -15,5 +15,12 @@ FactoryBot.define do
     trait :unique_items do
       sequence(:name) { |n| "#{Faker::Name.name} #{n + 1}" }
     end
+
+    trait :with_kinds do
+      after :create do |pokemon|
+        create(:pokemon_kind, pokemon: pokemon)
+      end
+    end
   end
+  factory :with_kinds, traits: %i[with_kinds]
 end

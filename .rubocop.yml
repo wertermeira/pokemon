@@ -25,6 +25,7 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/integration/**/*.rb'
     - 'spec/swagger_helper.rb'
+    - 'lib/tasks/*.rake'
   IgnoredMethods: ['describe', 'context', 'feature', 'scenario', 'let', 'response', 'post', 'get', 'patch', 'put', 'path', 'delete', 'before']
 
 Metrics/MethodLength:
