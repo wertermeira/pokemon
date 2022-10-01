@@ -11,5 +11,9 @@ FactoryBot.define do
     speed { rand(1..100) }
     generation { rand(1..3) }
     legendary { [false, true].sample }
+
+    trait :unique_items do
+      sequence(:name) { |n| "#{Faker::Name.name} #{n + 1}" }
+    end
   end
 end

@@ -3,5 +3,9 @@
 FactoryBot.define do
   factory :kind do
     name { %w[Grass Pison Fire Bug Water].sample }
+
+    trait :unique_items do
+      sequence(:name) { |n| "#{Faker::Name.name} #{n + 1}" }
+    end
   end
 end
