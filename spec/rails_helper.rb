@@ -27,7 +27,6 @@ end
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
-  config.include Requests::JsonHelpers, type: :request
 
   config.use_transactional_fixtures = true
 

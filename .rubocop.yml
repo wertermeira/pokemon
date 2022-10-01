@@ -24,7 +24,7 @@ Layout/DotPosition:
 Metrics/BlockLength:
   Exclude:
     - 'spec/integration/**/*.rb'
-  AllowedMethods: ['describe', 'context', 'feature', 'scenario', 'let', 'response', 'post', 'get', 'patch', 'put', 'path', 'delete', 'before']
+  IgnoredMethods: ['describe', 'context', 'feature', 'scenario', 'let', 'response', 'post', 'get', 'patch', 'put', 'path', 'delete', 'before']
 
 Metrics/MethodLength:
   Enabled: true
