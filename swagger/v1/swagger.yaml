@@ -4,11 +4,52 @@ info:
   title: API V1
   version: v1
 paths:
+  "/authentications":
+    post:
+      summary: Authentication
+      tags:
+      - Authentications
+      parameters: []
+      responses:
+        '201':
+          description: Created token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  exp:
+                    type: string
+                    example: 10-03-2022 13:29
+                  emal:
+                    type: string
+                    example: petal@petal.com
+        '422':
+          description: Unprocessable Entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                authentication:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: petal@petal.com
+                    password:
+                      type: string
+                      example: '123456'
   "/kinds":
     get:
       summary: List kinds
       tags:
       - Kinds
+      security:
+      - bearer: []
       responses:
         '200':
           description: List
@@ -28,6 +69,8 @@ paths:
       tags:
       - Kinds
       description: Create new kind (type, species)
+      security:
+      - bearer: []
       parameters: []
       responses:
         '201':
@@ -58,6 +101,8 @@ paths:
       tags:
       - Kinds
       description: Show a kind (type, species)
+      security:
+      - bearer: []
       parameters:
       - name: id
         in: path
@@ -74,11 +119,15 @@ paths:
                     "$ref": "#/components/schemas/Kind"
         '404':
           description: Not found
+        '401':
+          description: Unauthorized
     put:
       summary: Update kind
       tags:
       - Kinds
       description: Update a kind (type, species)
+      security:
+      - bearer: []
       parameters:
       - name: id
         in: path
@@ -110,7 +159,9 @@ paths:
       summary: Destroy a kind
       tags:
       - Kinds
-      description: Show a kind (type, species)
+      description: Destroy a kind (type, species)
+      security:
+      - bearer: []
       parameters:
       - name: id
         in: path
@@ -125,6 +176,8 @@ paths:
       summary: List pokemon
       tags:
       - Pokemons
+      security:
+      - bearer: []
       responses:
         '200':
           description: List
@@ -143,6 +196,157 @@ paths:
                       "$ref": "#/components/schemas/Kind"
                   links:
                     "$ref": "#/components/schemas/Pagination"
+    post:
+      summary: Create Pokemon
+      tags:
+      - Pokemons
+      description: Create Pokemon
+      security:
+      - bearer: []
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/Pokemon"
+                  included:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/Kind"
+        '422':
+          description: Unprocessable Entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pokemon:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: Pikatchu
+                    total:
+                      type: integer
+                    hp:
+                      type: integer
+                    attack:
+                      type: integer
+                    sp_atk:
+                      type: integer
+                    sp_def:
+                      type: integer
+                    speed:
+                      type: integer
+                    defense:
+                      type: integer
+                    generation:
+                      type: integer
+                    legendary:
+                      type: boolean
+  "/pokemons/{id}":
+    get:
+      summary: Show Pokemon
+      tags:
+      - Pokemons
+      description: Show a Pokemon
+      security:
+      - bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/Pokemon"
+                  included:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/Kind"
+        '404':
+          description: Not found
+    put:
+      summary: Update pokemon
+      tags:
+      - Pokemon
+      description: Update a pokemon
+      security:
+      - bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '202':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/Kind"
+        '422':
+          description: Unprocessable Entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pokemon:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: Pikatchu
+                    total:
+                      type: integer
+                    hp:
+                      type: integer
+                    attack:
+                      type: integer
+                    sp_atk:
+                      type: integer
+                    sp_def:
+                      type: integer
+                    speed:
+                      type: integer
+                    defense:
+                      type: integer
+                    generation:
+                      type: integer
+                    legendary:
+                      type: boolean
+    delete:
+      summary: Destroy a Pokemon
+      tags:
+      - Pokemons
+      description: Destroy a Pokemon
+      security:
+      - bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '204':
+          description: Not content
+        '404':
+          description: Not found
 components:
   schemas:
     Kind:
@@ -170,7 +374,7 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
         type:
           type: string
           example: kinds
@@ -235,6 +439,10 @@ components:
         last:
           type: url
           example: http://example.com/articles?page[offset]=10
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
 servers:
 - url: http://{defaultHost}
   variables:
