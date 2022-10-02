@@ -23,8 +23,8 @@ example_id                                            | status | run_time       
 ./spec/integration/pokemons_spec.rb[1:2:2:2:1]        | passed | 0.0673 seconds  |
 ./spec/integration/pokemons_spec.rb[1:2:3:1:1]        | passed | 0.12905 seconds |
 ./spec/integration/pokemons_spec.rb[1:2:3:2:1]        | passed | 0.05286 seconds |
-./spec/lib/jwt_token_spec.rb[1:1:1]                   | passed | 0.00965 seconds |
-./spec/lib/jwt_token_spec.rb[1:2:1]                   | passed | 0.00509 seconds |
+./spec/lib/jwt_token_spec.rb[1:1:1]                   | passed | 0.0062 seconds  |
+./spec/lib/jwt_token_spec.rb[1:2:1]                   | passed | 0.05184 seconds |
 ./spec/models/kind_spec.rb[1:1:1]                     | passed | 0.00165 seconds |
 ./spec/models/kind_spec.rb[1:2:1]                     | passed | 0.03243 seconds |
 ./spec/models/kind_spec.rb[1:2:2]                     | passed | 0.04366 seconds |

@@ -24,9 +24,7 @@ RSpec.describe JwtToken do
   end
 
   describe '.decode' do
-    before do
-      allow(JWT).to receive(:decode).with(token, secret_key_base).and_return([payload])
-    end
+    let(:token) { described_class.encode({ user_id: user_id }, time) }
 
     it do
       expect(described_class.decode(token)).to eq(HashWithIndifferentAccess.new(payload))

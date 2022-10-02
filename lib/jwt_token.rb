@@ -8,7 +8,7 @@ class JwtToken
     end
 
     def decode(token)
-      decoded = JWT.decode(token, Rails.application.secrets.secret_key_base.to_s)[0]
+      decoded = JWT.decode(token, Rails.application.secrets.secret_key_base.to_s).first
       HashWithIndifferentAccess.new decoded
     end
   end
