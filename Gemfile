@@ -11,8 +11,6 @@ gem 'jwt'
 gem 'csv', '~> 3.2', '>= 3.2.5'
 # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Ruby webapps
 gem 'kaminari'
-# Object-based searching. http://ransack-demo.herokuapp.com
-gem 'ransack'
 # ActiveModel::Serializer implementation and Rails hooks
 gem 'active_model_serializers', '~> 0.10.12'
 
