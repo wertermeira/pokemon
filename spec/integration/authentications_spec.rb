@@ -21,13 +21,19 @@ RSpec.describe '/authentications', type: :request do
           authentication: {
             type: :object,
             properties: {
-              email: { type: :string, example: 'email@site.com' },
-              password: { type: :string }
+              email: { type: :string, example: 'petal@petal.com' },
+              password: { type: :string, example: '123456' }
             }
           }
         }
       }
       response 201, 'Created token' do
+        schema type: :object,
+               properties: {
+                 token: { type: :string },
+                 exp: { type: :string, example: '10-03-2022 13:29' },
+                 emal: { type: :string, example: 'petal@petal.com' }
+               }
         let(:authentication) do
           {
             authentication: {

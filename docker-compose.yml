@@ -1,0 +1,36 @@
+version: '3.5'
+
+services:
+   postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=postgres
+   web:
+    build:
+      context: .
+      dockerfile: ./dockerfile
+    env_file: .env
+    environment:
+      - DB_HOST=postgres
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_PORT=5432
+    tty: true
+    container_name: petal_pokemon
+    links:
+      - postgres
+    volumes:
+      - .:/rails-app
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+volumes:
+  postgres: {}
