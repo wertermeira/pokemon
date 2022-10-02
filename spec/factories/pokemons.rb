@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :pokemon do
+    user { create(:user) }
     name { Faker::Games::Pokemon.name }
     hp { rand(1..100) }
     attack { rand(1..100) }

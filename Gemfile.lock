@@ -74,6 +74,7 @@ GEM
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
+    bcrypt (3.1.16)
     bootsnap (1.13.0)
       msgpack (~> 1.2)
     brakeman (5.2.1)
@@ -116,6 +117,7 @@ GEM
     json-schema (2.8.1)
       addressable (>= 2.4)
     jsonapi-renderer (0.2.2)
+    jwt (2.5.0)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -280,6 +282,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.12)
+  bcrypt (~> 3.1.7)
   bootsnap
   brakeman
   csv (~> 3.2, >= 3.2.5)
@@ -288,6 +291,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
+  jwt
   kaminari
   pg (~> 1.4, >= 1.4.3)
   puma (~> 5.0)

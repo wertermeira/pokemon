@@ -6,4 +6,10 @@ module Requests
       JSON.parse(response.body)
     end
   end
+
+  module HeaderHelpers
+    def authentication(token)
+      "Bearer #{token}"
+    end
+  end
 end

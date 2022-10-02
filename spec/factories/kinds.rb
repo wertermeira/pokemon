@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :kind do
+    user { create(:user) }
     name { %w[Grass Pison Fire Bug Water].sample }
 
     trait :unique_items do

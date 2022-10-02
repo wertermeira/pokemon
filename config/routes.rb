@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :pokemons
   resources :kinds
+  resources :authentications, only: :create
 end
