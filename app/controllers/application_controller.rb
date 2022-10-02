@@ -15,7 +15,6 @@ class ApplicationController < ActionController::API
     render json: { errors: e.message }, status: :unauthorized
   end
 
-
   def authenticate_token
     authenticate_with_http_token do |token|
       JwtToken.decode(token)

@@ -3,11 +3,20 @@
 require 'swagger_helper'
 
 RSpec.describe '/pokemons', type: :request do
+  let(:user) { create(:user) }
+  let(:token) { 'xxx' }
+  let(:Authorization) { authentication(token) }
+
+  before do
+    allow(JwtToken).to receive(:decode).with(token).and_return({ user_id: user.id })
+  end
+
   path '/pokemons' do
     get 'List pokemon' do
       let(:pokemon_count) { rand(1..10) }
       tags 'Pokemons'
       produces 'application/json'
+      security [bearer: []]
 
       response 200, 'List' do
         schema type: :object,
@@ -29,6 +38,7 @@ RSpec.describe '/pokemons', type: :request do
       produces 'application/json'
       consumes 'application/json'
       description 'Create Pokemon'
+      security [bearer: []]
       parameter name: :pokemon, in: :body, schema: {
         type: :object,
         properties: {
@@ -109,7 +119,8 @@ RSpec.describe '/pokemons', type: :request do
     get 'Show Pokemon' do
       tags 'Pokemons'
       produces 'application/json'
-      description 'Show a Pokemon (type, species)'
+      description 'Show a Pokemon'
+      security [bearer: []]
       parameter name: :id, in: :path
 
       response 200, 'Success' do
@@ -133,6 +144,7 @@ RSpec.describe '/pokemons', type: :request do
       produces 'application/json'
       consumes 'application/json'
       description 'Update a pokemon'
+      security [bearer: []]
       parameter name: :id, in: :path
       parameter name: :pokemon, in: :body, schema: {
         type: :object,
@@ -223,9 +235,10 @@ RSpec.describe '/pokemons', type: :request do
       tags 'Pokemons'
       produces 'application/json'
       description 'Destroy a Pokemon'
+      security [bearer: []]
       parameter name: :id, in: :path
 
-      response 204, 'Not contet' do
+      response 204, 'Not content' do
         let(:id) { create(:pokemon).id }
         run_test! do
           expect(Kind.find_by(id: id)).to be_falsey

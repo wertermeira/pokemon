@@ -8,8 +8,9 @@ RSpec.describe '/kinds', type: :request do
   let(:Authorization) { authentication(token) }
 
   before do
-    allow(JwtToken).to receive(:decode).with(token).and_return({user_id: user.id})
+    allow(JwtToken).to receive(:decode).with(token).and_return({ user_id: user.id })
   end
+
   path '/kinds' do
     get 'List kinds' do
       let(:kinds_count) { rand(1..10) }
@@ -114,7 +115,7 @@ RSpec.describe '/kinds', type: :request do
         end
 
         run_test! do
-          expect(json_body.dig('errors')).to eq(message)
+          expect(json_body['errors']).to eq(message)
         end
       end
     end
