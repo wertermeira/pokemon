@@ -83,6 +83,12 @@ RSpec.configure do |config|
               last: { type: :url, example: 'http://example.com/articles?page[offset]=10' }
             }
           }
+        },
+        securitySchemes: {
+          bearer: {
+            type: :http,
+            scheme: :bearer
+          }
         }
       },
       servers: [

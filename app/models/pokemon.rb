@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Pokemon < ApplicationRecord
+  belongs_to :user, default: -> { Current.user }
   has_many :pokemon_kinds, dependent: :destroy
   has_many :kinds, through: :pokemon_kinds
 

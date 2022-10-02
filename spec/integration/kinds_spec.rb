@@ -3,11 +3,20 @@
 require 'swagger_helper'
 
 RSpec.describe '/kinds', type: :request do
+  let(:user) { create(:user) }
+  let(:token) { 'xxx' }
+  let(:Authorization) { authentication(token) }
+
+  before do
+    allow(JwtToken).to receive(:decode).with(token).and_return({ user_id: user.id })
+  end
+
   path '/kinds' do
     get 'List kinds' do
       let(:kinds_count) { rand(1..10) }
       tags 'Kinds'
       produces 'application/json'
+      security [bearer: []]
 
       response 200, 'List' do
         schema type: :object,
@@ -28,6 +37,7 @@ RSpec.describe '/kinds', type: :request do
       produces 'application/json'
       consumes 'application/json'
       description 'Create new kind (type, species)'
+      security [bearer: []]
       parameter name: :kind, in: :body, schema: {
         type: :object,
         properties: {
@@ -80,6 +90,7 @@ RSpec.describe '/kinds', type: :request do
       tags 'Kinds'
       produces 'application/json'
       description 'Show a kind (type, species)'
+      security [bearer: []]
       parameter name: :id, in: :path
 
       response 200, 'Success' do
@@ -95,6 +106,18 @@ RSpec.describe '/kinds', type: :request do
         let(:id) { 0 }
         run_test!
       end
+
+      response 401, 'Unauthorized' do
+        let(:message) { 'token invalid' }
+        let(:id) { create(:kind).id }
+        before do
+          allow(JwtToken).to receive(:decode).with(token).and_raise(JWT::InvalidIssuerError.new(message))
+        end
+
+        run_test! do
+          expect(json_body['errors']).to eq(message)
+        end
+      end
     end
 
     put 'Update kind' do
@@ -102,6 +125,7 @@ RSpec.describe '/kinds', type: :request do
       produces 'application/json'
       consumes 'application/json'
       description 'Update a kind (type, species)'
+      security [bearer: []]
       parameter name: :id, in: :path
       parameter name: :kind, in: :body, schema: {
         type: :object,
@@ -155,6 +179,7 @@ RSpec.describe '/kinds', type: :request do
       tags 'Kinds'
       produces 'application/json'
       description 'Destroy a kind (type, species)'
+      security [bearer: []]
       parameter name: :id, in: :path
 
       response 204, 'Not contet' do
