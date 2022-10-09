@@ -51,6 +51,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'rspec-json_expectations'
   gem 'rspec-rails'
   gem 'rswag-specs'
   gem 'rubocop-performance'
