@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'rspec/json_expectations'
 require 'simplecov'
 SimpleCov.start 'rails' do
   minimum_coverage line: 100

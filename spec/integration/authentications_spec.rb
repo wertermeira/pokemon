@@ -48,16 +48,41 @@ RSpec.describe '/authentications', type: :request do
       end
 
       response 422, 'Unprocessable Entity' do
-        let(:authentication) do
-          {
-            authentication: {
-              email: user.email,
-              password: Faker::Internet.password
+        context 'when validate email and password' do
+          let(:authentication) do
+            {
+              authentication: {
+                email: 'email',
+                password: ''
+              }
             }
-          }
+          end
+          let(:expected_error) do
+            {
+              error: {
+                password: [I18n.t('errors.messages.blank')],
+                email: ['Invalid email']
+              }
+            }
+          end
+
+          run_test! do
+            expect(json_body).to include_json(expected_error)
+          end
         end
 
-        run_test!
+        context 'when email or password is invalid' do
+          let(:authentication) do
+            {
+              authentication: {
+                email: user.email,
+                password: Faker::Internet.password
+              }
+            }
+          end
+
+          run_test!
+        end
       end
     end
   end
